@@ -1,0 +1,92 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url "home_page" %}">Beauty Center</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url "home_page" %}">Home</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Services
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Nails</a></li>
+                        <li><a class="dropdown-item" href="#">Hair</a></li>
+                        <li><a class="dropdown-item" href="#">Makeup</a></li>
+                    </ul>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Our Team
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Add a new stylist</a></li>
+                        <li><a class="dropdown-item" href="#">Beauty center team</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Reservation
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">New Reservation</a></li>
+                        <li><a class="dropdown-item" href="#">Your Reservation</a></li>
+                    </ul>
+                </li>
+                
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Reviews
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Add a review</a></li>
+                        <li><a class="dropdown-item" href="#">My reviews</a></li>
+                        <li><a class="dropdown-item" href="#">All reviews</a></li>
+                    </ul>
+                </li>
+                
+                 <li class="nav-item">
+                    <a class="nav-link" href="#" role="button">
+                        About us
+                    </a>
+                </li>
+                
+                   <li class="nav-item">
+                    <a class="nav-link" href="#" role="button">
+                        Contact
+                    </a>
+                </li>
+                
+            </ul>
+            
+            <div>
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger"
+                                style="background-color: deeppink;color:white; margin-right: 5px">
+                            Logout, {{ user.username }}
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="#" class="btn btn-outline-primary">Login</a>
+                    <a href="#" class="btn btn-outline-secondary" style="margin-right: 5px">Signup</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
