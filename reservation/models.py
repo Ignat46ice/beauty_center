@@ -13,9 +13,8 @@ class Stylist(models.Model):
 
 class Service(models.Model):
     name = models.CharField(max_length=255)
-    duration = models.DurationField(default=timedelta(hours=2))
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    stylists = models.ManyToManyField(Stylist)
+    duration = models.IntegerField(max_length=10)
+    price = models.DecimalField(max_digits=10, decimal_places=0)
 
     def __str__(self):
         return self.name

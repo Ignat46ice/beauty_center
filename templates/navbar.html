@@ -1,6 +1,11 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{% url "home_page" %}">Beauty Center</a>
+    <div class="container-fluid" style="background-color: burlywood">
+        <a class="nav-logo" href="{% url "home_page" %}">
+            <div class="row">
+        <img src="{% static 'images/logo.png' %}" alt="no image" height="50px">
+    </div>
+        </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,44 +20,43 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        Services
+                       aria-expanded="false" >
+                        Prices
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Nails</a></li>
-                        <li><a class="dropdown-item" href="#">Hair</a></li>
-                        <li><a class="dropdown-item" href="#">Makeup</a></li>
+                    <ul class="dropdown-menu" style="background-color:bisque">
+                        <li><a class="dropdown-item" href="{% url "create_service" %}">New service</a></li>
+                        <li><a class="dropdown-item" href="{% url "services_list" %}">Services</a></li>
                     </ul>
                 </li>
                 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" >
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
                         Our Team
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="background-color:bisque">
                         <li><a class="dropdown-item" href="#">Add a new stylist</a></li>
                         <li><a class="dropdown-item" href="#">Beauty center team</a></li>
                     </ul>
                 </li>
 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" >
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
                         Reservation
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="background-color:bisque">
                         <li><a class="dropdown-item" href="#">New Reservation</a></li>
                         <li><a class="dropdown-item" href="#">Your Reservation</a></li>
                     </ul>
                 </li>
                 
-                  <li class="nav-item dropdown">
+                  <li class="nav-item dropdown" >
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
                         Reviews
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="background-color:bisque">
                         <li><a class="dropdown-item" href="#">Add a review</a></li>
                         <li><a class="dropdown-item" href="#">My reviews</a></li>
                         <li><a class="dropdown-item" href="#">All reviews</a></li>
@@ -70,6 +74,7 @@
                         Contact
                     </a>
                 </li>
+                
                 
             </ul>
             
