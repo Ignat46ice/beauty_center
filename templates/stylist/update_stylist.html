@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} Update - {{ stylist }} {% endblock %}
+
+{% block content %}
+    
+    <div class="container-fluid">
+        <div class="row " style="background-color: burlywood">
+            <div class="col-md-6 offset-md-3 gy-5" >
+                <div class="card" style="background-color: burlywood">
+                    <div class="card-header" style="background-color: burlywood">
+                        <h3 class="text-center" style="background-color: burlywood">Update {{stylist}}</h3>
+                    </div>
+                    <form method="post" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                        <div class="card-body" style="background-color: burlywood">
+                            {{ form.as_p }}
+                        </div>
+                         <div class="card-footer text-center" style="background-color: burlywood">
+                            <button type="submit" class="btn btn-secondary" style="background-color: green">Save</button>
+                            <a href="{% url 'stylist_list' %}" class="btn btn-secondary" style="background-color: red">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

@@ -1,14 +1,14 @@
 
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 
-from reservation.models import Service
-
+from reservation.models import Service, Stylist
 
 from reservation.forms import ServiceForm, ServiceUpdateForm
+
+from reservation.forms import StylistForm, StylistUpdateForm
 
 
 class ServiceCreateView(CreateView):
@@ -44,7 +44,27 @@ class ServiceDeleteView(DeleteView):
     success_url = reverse_lazy('services_list')
 
 
+class StylistCreateView(CreateView):
+    template_name = 'stylist/create_stylist.html'
+    model = Stylist
+    form_class = StylistForm
+    success_url = reverse_lazy('stylist_list')
 
 
+class StylistListView(ListView):
+    template_name = 'stylist/stylist_list.html'
+    model = Stylist
+    context_object_name = 'all_stylists'
 
 
+class StylistUpdateView(UpdateView):
+    template_name = "stylist/update_stylist.html"
+    model = Stylist
+    form_class = StylistUpdateForm
+    success_url = reverse_lazy('stylist_list')
+
+
+class StylistDeleteView(DeleteView):
+    template_name = "stylist/delete_stylist.html"
+    model = Stylist
+    success_url = reverse_lazy('stylist_list')

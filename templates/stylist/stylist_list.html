@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Meet our team! {% endblock %}
+
+
+{% block content %}
+
+    <div class='container-fluid' >
+        <div class="row" >
+            {% for stylist in all_stylists %}
+                <div class="col-md-3 gy-3" >
+                
+                    <div class="card" style="background-color: rgb(95 71 71 /43%)">
+                        <div class="card-body">
+                            
+                            <h5 class="card-title" >{{ stylist.name }}</h5>
+                            <p class="card-text">Description: {{ stylist.description }} </p>
+                            <p class="card-text">Expert in: {% for s in stylist.services.all %} {{ s }} {% endfor %} </p>
+                            
+                            
+                            <div class="dropdown">
+                                
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false" style="background-color: burlywood">
+                                    More Actions
+                                </button>
+                                
+                                <ul class="dropdown-menu" style="background-color: bisque">
+                                    <li>
+                                        <a class="dropdown-item" href="{% url "update_stylist" stylist.id %}">Update</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url "delete_stylist" stylist.id %}">Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,20 +1,22 @@
-from datetime import timedelta
-
 from django.contrib.auth.models import User
 from django.db import models
 
 
-class Stylist(models.Model):
+class Service(models.Model):
     name = models.CharField(max_length=255)
+    duration = models.IntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=0)
 
     def __str__(self):
         return self.name
 
 
-class Service(models.Model):
+class Stylist(models.Model):
     name = models.CharField(max_length=255)
-    duration = models.IntegerField(max_length=10)
-    price = models.DecimalField(max_digits=10, decimal_places=0)
+    email = models.EmailField(max_length=50)
+    description = models.TextField()
+    services = models.ManyToManyField(Service)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
