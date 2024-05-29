@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} Create a Reservation{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 gy-5">
+                <div class="card" style="background-color: rgb(95 71 71 /43%)">
+                    <div class="card-header">
+                        <h3 class="text-center">Add a reservation</h3>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            {{ form.as_p }}
+                        </div>
+                        <div class="card-footer text-center">
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

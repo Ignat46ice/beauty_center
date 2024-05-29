@@ -2,11 +2,11 @@
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView, TemplateView
 
-from reservation.models import Service, Stylist
+from reservation.models import Service, Stylist, Reservation
 
-from reservation.forms import ServiceForm, ServiceUpdateForm
+from reservation.forms import ServiceForm, ServiceUpdateForm, ReservationUpdateForm, ReservationForm
 
 from reservation.forms import StylistForm, StylistUpdateForm
 
@@ -68,3 +68,29 @@ class StylistDeleteView(DeleteView):
     template_name = "stylist/delete_stylist.html"
     model = Stylist
     success_url = reverse_lazy('stylist_list')
+
+
+class ReservationCreateView(CreateView):
+    template_name = "reservation/create_reservation.html"
+    model = Reservation
+    form_class = ReservationForm
+    success_url = reverse_lazy('reservation_list')
+
+
+class ReservationListView(ListView):
+    template_name = 'reservation/reservation_list.html'
+    model = Reservation
+    context_object_name = 'all_reservations'
+
+
+class ReservationUpdateView(UpdateView):
+    template_name = "reservation/update_reservation.html"
+    model = Reservation
+    form_class = ReservationUpdateForm
+    success_url = reverse_lazy('reservation_list')
+
+
+class ReservationDeleteView(DeleteView):
+    template_name = "reservation/delete_reservation.html"
+    model = Reservation
+    success_url = reverse_lazy('reservation_list')

@@ -37,7 +37,6 @@ class ServiceUpdateForm(forms.ModelForm):
             "duration": forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Please enter the duration'}),
             "price": forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Please enter the price'}),
 
-
         }
 
 
@@ -83,4 +82,28 @@ class StylistUpdateForm(forms.ModelForm):
             'description': forms.Textarea(
                 attrs={'class': 'form-control', 'placeholder': 'Please enter a description', 'rows': 3}),
             "services": forms.CheckboxSelectMultiple(),
+        }
+
+
+class ReservationForm(forms.ModelForm):
+    class Meta:
+        model = Reservation
+        fields = ("stylist", "service", "datetime")
+
+        widgets = {
+            "stylist": forms.Select(attrs={'class': 'form-select'}),
+            "service": forms.Select(attrs={'class': 'form-select'}),
+            "datetime":  forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        }
+
+
+class ReservationUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Reservation
+        fields = ("stylist", "service", "datetime")
+
+        widgets = {
+            "stylist": forms.Select(attrs={'class': 'form-select'}),
+            "service": forms.Select(attrs={'class': 'form-select'}),
+            "datetime":  forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }

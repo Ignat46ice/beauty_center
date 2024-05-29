@@ -13,4 +13,9 @@ urlpatterns = [
     path('update-stylist/<int:pk>/', views.StylistUpdateView.as_view(), name='update_stylist'),
     path('delete-stylist/<int:pk>/', views.StylistDeleteView.as_view(), name='delete_stylist'),
 
+    path('create-reservation/', views.ReservationCreateView.as_view(), name='create_reservation'),
+    path('reservation-list/', views.ReservationListView.as_view(), name='reservation_list'),
+    path('update-reservation/<int:pk>/', views.ReservationUpdateView.as_view(), name='update_reservation'),
+    path('delete-reservation/<int:pk>/', views.ReservationDeleteView.as_view(), name='delete_reservation'),
+
 ]
