@@ -43,3 +43,15 @@ class Review(models.Model):
     stylist = models.ForeignKey(Stylist, on_delete=models.CASCADE)
     stars = models.PositiveIntegerField()
     description = models.TextField()
+
+
+class AboutUs(models.Model):
+    description = models.TextField()
+
+
+class Contact(models.Model):
+    description = models.TextField()
+
+
+
+

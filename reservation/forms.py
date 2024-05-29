@@ -1,5 +1,7 @@
 from django import forms
 
+from reservation.models import Service
+from reservation.models import Review
 from reservation.models import *
 
 
@@ -40,6 +42,28 @@ class ServiceUpdateForm(forms.ModelForm):
         }
 
 
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = '__all__'
+
+        widgets = {
+            'stylist': forms.Select(attrs={'class': 'form-select'}),
+            'stars': forms.NumberInput(attrs={'class': ""}),
+            'description': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Please enter a review', 'rows': 1}),
+        }
+
+
+class ReviewUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['stars', 'description']
+
+        widgets = {
+            'stars': forms.NumberInput(attrs={'class': ""}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Please enter a review', 'rows': 1}),
+        }
 class StylistForm(forms.ModelForm):
     class Meta:
         model = Stylist

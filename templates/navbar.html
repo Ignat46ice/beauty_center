@@ -1,7 +1,7 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid" style="background-color: burlywood">
-        <a class="nav-logo" href="{% url "home_page" %}">
+        <a class="nav-logo" href="{% url 'home_page' %}">
             <div class="row">
         <img src="{% static 'images/logo.png' %}" alt="no image" height="50px">
     </div>
@@ -13,7 +13,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                
+
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url "home_page" %}">Home</a>
                 </li>
@@ -24,11 +24,11 @@
                         Prices
                     </a>
                     <ul class="dropdown-menu" style="background-color:bisque">
-                        <li><a class="dropdown-item" href="{% url "create_service" %}">New service</a></li>
-                        <li><a class="dropdown-item" href="{% url "services_list" %}">Services</a></li>
+                        <li><a class="dropdown-item" href="{% url 'create_service' %}">New service</a></li>
+                        <li><a class="dropdown-item" href="{% url 'services_list' %}">Services</a></li>
                     </ul>
                 </li>
-                
+
                 <li class="nav-item dropdown" >
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
@@ -50,32 +50,33 @@
                         <li><a class="dropdown-item" href="{% url "reservation_list" %}">Your Reservations</a></li>
                     </ul>
                 </li>
-                
+
                   <li class="nav-item dropdown" >
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
                         Reviews
                     </a>
                     <ul class="dropdown-menu" style="background-color:bisque">
-                        <li><a class="dropdown-item" href="#">Add a review</a></li>
-                        <li><a class="dropdown-item" href="#">My reviews</a></li>
-                        <li><a class="dropdown-item" href="#">All reviews</a></li>
+                        <li><a class="dropdown-item" href="{% url 'create_review' %}">Add a review</a></li>
+                        <li><a class="dropdown-item" href="{% url 'reviews_list' %}">My reviews</a></li>
+                        <li><a class="dropdown-item" href="{% url 'update_review' %}">All reviews</a></li>
                     </ul>
                 </li>
-                
+
                  <li class="nav-item">
-                    <a class="nav-link" href="#" role="button">
+                        <a class="nav-link" href="{% url 'about_us' %}" role="button">
                         About us
                     </a>
                 </li>
-                
-                   <li class="nav-item">
-                    <a class="nav-link" href="#" role="button">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact_us' %}" role="button">
                         Contact
                     </a>
                 </li>
-                
-                
+
+
+
             </ul>
             
             <div>

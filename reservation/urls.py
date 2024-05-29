@@ -18,4 +18,13 @@ urlpatterns = [
     path('update-reservation/<int:pk>/', views.ReservationUpdateView.as_view(), name='update_reservation'),
     path('delete-reservation/<int:pk>/', views.ReservationDeleteView.as_view(), name='delete_reservation'),
 
+
+
+    path('about-us/', views.AboutUsTemplateView.as_view(), name='about_us'),
+
+    path('contact_us/', views.ContactTemplateView.as_view(), name='contact_us'),
+
+    path('create-review/', views.ReviewCreateView.as_view(), name='create_review'),
+    path('reviews_list/', views.ReviewListView.as_view(), name='reviews_list'),
+    path('update-review/', views.ReviewUpdateView.as_view(), name='update_review'),
 ]
