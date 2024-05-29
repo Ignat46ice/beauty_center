@@ -1,14 +1,12 @@
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView, TemplateView
 
-from reservation.models import Service
+from reservation.models import Service, AboutUs, Contact, Review
 
-
-from reservation.forms import ServiceForm, ServiceUpdateForm
+from reservation.forms import ServiceForm, ServiceUpdateForm, ReviewForm, ReviewUpdateForm
 
 
 class ServiceCreateView(CreateView):
@@ -44,7 +42,33 @@ class ServiceDeleteView(DeleteView):
     success_url = reverse_lazy('services_list')
 
 
+class AboutUsTemplateView(TemplateView):
+    template_name = 'about/about_us.html'
+    model = AboutUs
+    success_url = reverse_lazy('about_us')
 
 
+class ContactTemplateView(TemplateView):
+    template_name = 'contact/contact_us.html'
+    model = Contact
+    success_url = reverse_lazy('contact')
 
 
+class ReviewCreateView(CreateView):
+    template_name = 'review/create_review.html'
+    model = Review
+    form_class = ReviewForm
+    success_url = reverse_lazy('reviews_list')
+
+
+class ReviewListView(ListView):
+    template_name = 'review/review_list.html'
+    model = Review
+    context_object_name = 'reviews_list'
+
+
+class ReviewUpdateView(UpdateView):
+    template_name = 'review/update_review.html'
+    model = Review
+    form_class = ReviewUpdateForm
+    success_url = reverse_lazy('reviews_list')

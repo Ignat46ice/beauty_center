@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %} List of reviews{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="text-center" style="background-color:blueviolet">Stylist</th>
+                        <th class="text-center" style="background-color:blueviolet">Stars</th>
+                        <th class="text-center" style="background-color:blueviolet">Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for reviews in all_reviews %}
+                        <tr>
+                        <td class="text-center" >{{ review.first_name }}</td>
+                        <td class="text-center" >{{ review.last_name }}</td>
+                        <td class="text-center" >
+                            {% if review.stylist  %}
+                                {{ review.stylist }}
+                            {% else %}
+                                No stylist
+                            {% endif %}
+                        </td>
+                        <td class="text-center" > {{ review.message }}</td>
+                        <td class="text-center" >
+                            <div class="dropdown">
+                                <button class="btn btn-warning dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    more actions
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'update_review' review.id %}">Update</a></li>
+                                    <li><a class="dropdown-item" href="*">Delete</a></li>
+                                    <li><a class="dropdown-item" href="*">View details</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    {% endfor %}
+                    <td>
+                    <tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
