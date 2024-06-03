@@ -1,36 +1,36 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Your Reservations  {% endblock %}
+{% block title %} Reviews {% endblock %}
 
 
 {% block content %}
 
     <div class='container-fluid' >
         <div class="row" >
-            {% for reservation in all_reservations %}
+            {% for review in all_reviews %}
                 <div class="col-md-3 gy-3" >
-                
+
                     <div class="card" style="background-color: rgb(95 71 71 /43%)">
                         <div class="card-body">
-                            
-                            <h5 class="card-title">Expert: {{ reservation.stylist }}</h5>
-                            <p class="card-text">Service: {{ reservation.service }} </p>
-                            <p class="card-text">Date: {{ reservation.datetime_from }} </p>
-                            
+
+                            <h5 class="card-title">Expert: {{ review.stylist}}</h5>
+                            <p class="card-text">Stars: {{ review.stars }} </p>
+                            <p class="card-text">Description: {{ review.description}} </p>
+
                             <div class="dropdown">
-                                
+
                                 <button class="btn btn-secondary dropdown-toggle" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false" style="background-color: burlywood">
                                     More Actions
                                 </button>
-                                
+
                                 <ul class="dropdown-menu" style="background-color: bisque">
                                     <li>
-                                        <a class="dropdown-item" href="{% url "update_reservation" service.id %}">Update</a>
+                                        <a class="dropdown-item" href="{% url "update_review" review.id %}">Update</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="{% url "delete_reservation" service.id %}">Delete</a>
+                                        <a class="dropdown-item" href="{% url "delete_review" review.id %}">Delete</a>
                                     </li>
                                 </ul>
                             </div>

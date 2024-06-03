@@ -1,81 +1,38 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
-    <style>
-        body {
-            font-family: "Malgun Gothic Semilight", sans-serif;
-            margin: 10px;
-            padding: 10px;
-            background-color: burlywood;
-        }
+{% extends 'base.html' %}
 
-        header {
-            background-color: cornsilk;
-            color: saddlebrown;
-            padding: 40px 10px;
-            text-align: center;
-        }
+{% block title %} About us {% endblock %}
 
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        nav ul li {
-            display: inline-grid;
-            margin: 30px;
-        }
-
-        nav ul li a {
-            color: saddlebrown;
-            text-decoration: -moz-mac-menushadow;
-            padding: 10px;
-        }
-
-        .container {
-            padding: 20px;
-        }
-
-        .about, .gallery {
-            margin-bottom: 40px;
-        }
-
-        .gallery img {
-            width: 30%;
-            margin: 1%;
-            display: table-caption;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1>Contact details</h1>
-    <div class="contact-info">
-        <h3>Adresă</h3>
-        <p>Str. Sperantei 18, Sector 2, Bucuresti</p>
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 gy-5 gx-5">
+                <div class="card" style="background-color: rgb(95 71 71 /43%)">
+                    <div class="card-header">
+                        <h1 class="text-center">Contact details</h1>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="card-body" style="background-color: burlywood">
+                            <h2 class="text-right" >Adresă</h2>
+                            <h5 class="text-right" >Str. Sperantei 18, Sector 2, Bucuresti</h5>
+                            <h2 class="text-right" >Telefon</h2>
+                            <h5 class="text-right" >+40 747 238 542</h5>
+                            <h2 class="text-right" >Email</h2>
+                            <h5 class="text-right" >beautycenter@gmail.com</h5>
+                            <h2 class="text-right" >Program</h2>
+                            <h5 class="text-right" > Luni - Vineri: 9:00 - 19:00
+                                                    Sâmbătă: 9:00 - 14:00
+                                                    Duminică: Închis
+                            </h5>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="{% url 'home_page' %}" class="btn btn-secondary" style="background-color: burlywood">Back</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="contact-info">
-        <h3>Telefon</h3>
-        <p>+40 747 238 542</p>
-    </div>
-    <div class="contact-info">
-        <h3>Email</h3>
-        <p>beautycenter@gmail.com</p>
-    </div>
-    <div class="contact-info">
-        <h3>Program</h3>
-        <p>Luni - Vineri: 9:00 - 19:00<br>Sâmbătă: 9:00 - 14:00<br>Duminică: Închis</p>
-    </div>
-</div>
-</div>
+{% endblock %}
 
-<div class="footer">
-    <p>&copy; 2024 Beauty Center.</p>
-</div>
-</body>
-</html>

@@ -46,8 +46,8 @@
                         Reservation
                     </a>
                     <ul class="dropdown-menu" style="background-color:bisque">
-                        <li><a class="dropdown-item" href="{% url "create_reservation" %}">New Reservation</a></li>
-                        <li><a class="dropdown-item" href="{% url "reservation_list" %}">Your Reservations</a></li>
+                        <li><a class="dropdown-item" href="{% url 'create_reservation' %}">New Reservation</a></li>
+                        <li><a class="dropdown-item" href="{% url 'reservation_list' %}">Your Reservations</a></li>
                     </ul>
                 </li>
 
@@ -58,8 +58,7 @@
                     </a>
                     <ul class="dropdown-menu" style="background-color:bisque">
                         <li><a class="dropdown-item" href="{% url 'create_review' %}">Add a review</a></li>
-                        <li><a class="dropdown-item" href="{% url 'reviews_list' %}">My reviews</a></li>
-                        <li><a class="dropdown-item" href="{% url 'update_review' %}">All reviews</a></li>
+                        <li><a class="dropdown-item" href="{% url 'reviews_list' %}">All reviews</a></li>
                     </ul>
                 </li>
 
@@ -89,8 +88,8 @@
                         </button>
                     </form>
                 {% else %}
-                    <a href="#" class="btn btn-outline-primary">Login</a>
-                    <a href="#" class="btn btn-outline-secondary" style="margin-right: 5px">Signup</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
+                    <a href="{% url 'create_user' %}" class="btn btn-outline-secondary" style="margin-right: 5px">Signup</a>
                 {% endif %}
             </div>
         </div>

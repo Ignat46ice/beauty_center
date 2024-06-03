@@ -15,20 +15,30 @@ class Stylist(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=50)
     description = models.TextField()
-    services = models.ManyToManyField(Service)
+    # services = models.ManyToManyField(Service)
     active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
 
 
-class Reservation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class StylistService(models.Model):
     stylist = models.ForeignKey(Stylist, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.service} @ {self.stylist}'
+
+
+class Reservation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    stylist_service = models.ForeignKey(StylistService, on_delete=models.CASCADE)
+    # stylist = models.ForeignKey(Stylist, on_delete=models.CASCADE)
+    # services = models.ForeignKey(StylistService, on_delete=models.CASCADE)
     status = models.CharField(max_length=32,
                               choices=[('Pending', 'Pending'), ("Confirmed", "Confirmed"), ("Declined", "Declined")])
-    datetime = models.DateTimeField()
+    datetime_from = models.DateTimeField()
+    datetime_to = models.DateTimeField(null=True, blank=True)
 
 
 class Schedule(models.Model):
@@ -51,7 +61,3 @@ class AboutUs(models.Model):
 
 class Contact(models.Model):
     description = models.TextField()
-
-
-
-

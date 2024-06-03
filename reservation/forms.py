@@ -12,7 +12,7 @@ class ServiceForm(forms.ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Please enter a service'}),
-            "duration": forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Please enter the duration'}),
+            "duration": forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Please enter the duration in minutes'}),
             "price": forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Please enter the price'}),
 
         }
@@ -62,8 +62,11 @@ class ReviewUpdateForm(forms.ModelForm):
 
         widgets = {
             'stars': forms.NumberInput(attrs={'class': ""}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Please enter a review', 'rows': 1}),
+            'description': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Please enter a review', 'rows': 1}),
         }
+
+
 class StylistForm(forms.ModelForm):
     class Meta:
         model = Stylist
@@ -74,7 +77,7 @@ class StylistForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Please enter a email'}),
             'description': forms.Textarea(
                 attrs={'class': 'form-control', 'placeholder': 'Please enter a description', 'rows': 3}),
-            "services": forms.CheckboxSelectMultiple(),
+            # "services": forms.CheckboxSelectMultiple(),
         }
 
     def clean(self):
@@ -105,29 +108,32 @@ class StylistUpdateForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Please enter a email'}),
             'description': forms.Textarea(
                 attrs={'class': 'form-control', 'placeholder': 'Please enter a description', 'rows': 3}),
-            "services": forms.CheckboxSelectMultiple(),
+            # "services": forms.CheckboxSelectMultiple(),
         }
 
 
 class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = ("stylist", "service", "datetime")
+        fields = ("stylist_service", "datetime_from")
 
         widgets = {
-            "stylist": forms.Select(attrs={'class': 'form-select'}),
-            "service": forms.Select(attrs={'class': 'form-select'}),
-            "datetime":  forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            "stylist_service": forms.Select(attrs={'class': 'form-select'}),
+            # "services": forms.Select(attrs={'class': 'form-select'}),
+            "datetime_from": forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
 
 
-class ReservationUpdateForm(forms.ModelForm):
+class StylistServiceForm(forms.ModelForm):
     class Meta:
-        model = Reservation
-        fields = ("stylist", "service", "datetime")
+        model = StylistService
+        fields = '__all__'
 
         widgets = {
-            "stylist": forms.Select(attrs={'class': 'form-select'}),
-            "service": forms.Select(attrs={'class': 'form-select'}),
-            "datetime":  forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'stylist': forms.Select(attrs={'class': 'form-select'}),
+            'service': forms.CheckboxSelectMultiple(),
+
         }
+
+
+

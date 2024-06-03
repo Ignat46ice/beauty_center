@@ -1,14 +1,14 @@
-
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, TemplateView
 
-from reservation.models import Service, Stylist, Reservation
+from reservation.models import Service, Stylist, Reservation, StylistService
 from reservation.models import Service, AboutUs, Contact, Review
 
-from reservation.forms import ServiceForm, ServiceUpdateForm, ReservationUpdateForm, ReservationForm
+from reservation.forms import ServiceForm, ServiceUpdateForm, ReservationForm, StylistServiceForm
 
 from reservation.forms import StylistForm, StylistUpdateForm
 from reservation.forms import ServiceForm, ServiceUpdateForm, ReviewForm, ReviewUpdateForm
@@ -58,6 +58,7 @@ class ContactTemplateView(TemplateView):
     model = Contact
     success_url = reverse_lazy('contact')
 
+
 class StylistCreateView(CreateView):
     template_name = 'stylist/create_stylist.html'
     model = Stylist
@@ -81,13 +82,16 @@ class StylistUpdateView(UpdateView):
 class StylistDeleteView(DeleteView):
     template_name = "stylist/delete_stylist.html"
     model = Stylist
+    form_class = StylistUpdateForm
     success_url = reverse_lazy('stylist_list')
 
-class ReviewCreateView(CreateView):
-    template_name = 'review/create_review.html'
-    model = Review
-    form_class = ReviewForm
-    success_url = reverse_lazy('reviews_list')
+
+class StylistServiceCreateView(CreateView):
+    template_name = "stylist/stylist_service.html"
+    model = StylistService
+    form_class = StylistServiceForm
+    success_url = reverse_lazy('stylist_list')
+
 
 class ReservationCreateView(CreateView):
     template_name = "reservation/create_reservation.html"
@@ -95,10 +99,21 @@ class ReservationCreateView(CreateView):
     form_class = ReservationForm
     success_url = reverse_lazy('reservation_list')
 
-class ReviewListView(ListView):
-    template_name = 'review/review_list.html'
-    model = Review
-    context_object_name = 'reviews_list'
+    def form_valid(self, form):
+        if form.is_valid():
+            datetime_from = form.cleaned_data['datetime_from']
+            datetime_to = form.cleaned_data['datetime_to']
+            reservation = Reservation.objects.filter(
+                Q(start_date_time__gte=datetime_from, start_date_time__lte=datetime_to) |
+                Q(end_date_time__gte=datetime_from, end_date_time__lte=datetime_to) |
+                Q(start_date_time__lt=datetime_from, end_date_time__gt=datetime_to)
+
+            ).count()
+            if reservation.intersecting > 0:
+                raise ValueError("Your reservation conflicts with another reservation")
+            return redirect(self.success_url)
+        return super(ReservationCreateView, self).form_valid(form)
+
 
 class ReservationListView(ListView):
     template_name = 'reservation/reservation_list.html'
@@ -109,7 +124,7 @@ class ReservationListView(ListView):
 class ReservationUpdateView(UpdateView):
     template_name = "reservation/update_reservation.html"
     model = Reservation
-    form_class = ReservationUpdateForm
+    form_class = ReservationForm
     success_url = reverse_lazy('reservation_list')
 
 
@@ -118,8 +133,31 @@ class ReservationDeleteView(DeleteView):
     model = Reservation
     success_url = reverse_lazy('reservation_list')
 
+
+class ReviewCreateView(CreateView):
+    template_name = 'review/create_review.html'
+    model = Review
+    form_class = ReviewForm
+    success_url = reverse_lazy('reviews_list')
+
+
+class ReviewListView(ListView):
+    template_name = 'review/reviews_list.html'
+    model = Review
+    context_object_name = 'all_reviews'
+
+
 class ReviewUpdateView(UpdateView):
     template_name = 'review/update_review.html'
     model = Review
     form_class = ReviewUpdateForm
     success_url = reverse_lazy('reviews_list')
+
+
+class ReviewDeleteView(DeleteView):
+    template_name = "review/delete_review.html"
+    model = Review
+    success_url = reverse_lazy('reviews_list')
+
+
+

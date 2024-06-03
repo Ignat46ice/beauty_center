@@ -1,75 +1,43 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Welcome</title>
-    <style>
-        body {
-            font-family: "Malgun Gothic Semilight", sans-serif;
-            margin: 10px;
-            padding: 10px;
-            background-color: burlywood;
-        }
-        header {
-            background-color: cornsilk;
-            color:saddlebrown;
-            padding: 40px 10px;
-            text-align: center;
-        }
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        nav ul li {
-            display: inline-grid;
-            margin: 30px;
-        }
-        nav ul li a {
-            color: saddlebrown;
-            text-decoration: -moz-mac-menushadow;
-            padding: 10px;
-        }
-        .container {
-            padding: 20px;
-        }
-        .about, .gallery {
-            margin-bottom: 40px;
-        }
-        .gallery img {
-            width: 30%;
-            margin: 1%;
-            display: table-caption;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Welcome</h1>
-        <nav>
-            <ul>
-                <li><a href="#about">To Beauty Center</a></li>
-            </ul>
-        </nav>
-    </header>
+{% extends 'base.html' %}
 
-    <div class="container">
-        <section id="about" class="about">
+{% block title %} About us {% endblock %}
 
-            <H4 style="background-color: cornsilk",>Welcome to Beauty Center, where beauty meets excellence.
-                Located in the heart of the city, our salon offers a luxurious escape from the everyday hustle and bustle. Our highly trained and experienced team of beauty professionals is dedicated to providing you with the highest quality services, ensuring you leave feeling refreshed, rejuvenated, and absolutely stunning.
-
-At Beauty Center, we believe that beauty is more than just skin deep. That's why we offer a comprehensive range of services designed to enhance your natural beauty and boost your confidence. From haircuts and styling to advanced skincare treatments, makeup, manicures, pedicures, and more, we have everything you need to look and feel your best.
-
-Our salon is equipped with state-of-the-art facilities and we use only the finest products from leading brands to ensure optimal results. Whether you're preparing for a special occasion or simply looking to pamper yourself, our friendly and attentive staff will provide you with a personalized experience tailored to your unique needs and preferences.
-
-Experience the difference at Beauty Center, where your beauty is our passion. Book your appointment today and let us help you shine.
-</H4>
-
-            </ul>
-        </section>
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 gy-5">
+                <div class="card" style="background-color: rgb(95 71 71 /43%)">
+                    <div class="card-header">
+                        <h1 class="text-center">Welcome</h1>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="card-body" style="background-color: burlywood">
+                            <h3 class="text-right">
+                                Welcome to Beauty Center, where beauty meets excellence. 
+                                Located in the heart of the city, our salon offers a luxurious escape from the everyday 
+                                hustle and bustle. Our highly trained and experienced team of beauty professionals is 
+                                dedicated to providing you with the highest quality services, ensuring you leave feeling 
+                                refreshed, rejuvenated, and absolutely stunning. At Beauty Center, we believe that
+                                beauty is more than just skin deep. That's why we offer a comprehensive range of
+                                services designed to enhance your natural beauty and boost your confidence. 
+                                From haircuts and styling to advanced skincare treatments, makeup, manicures, pedicures,
+                                and more, we have everything you need to look and feel your best. Our salon is equipped 
+                                with state-of-the-art facilities, and we use only the finest products from leading 
+                                brands to ensure optimal results. Whether you're preparing for a special occasion or 
+                                simply looking to pamper yourself, our friendly and attentive staff will provide you 
+                                with a personalized experience tailored to your unique needs and preferences. 
+                                Experience the difference at Beauty Center, where your beauty is our passion. 
+                                Book your appointment today and let us help you shine.
+                            </h3>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="{% url 'home_page' %}" class="btn btn-secondary" style="background-color: burlywood">Back</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+{% endblock %}
