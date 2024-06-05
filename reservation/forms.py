@@ -1,7 +1,4 @@
 from django import forms
-
-from reservation.models import Service
-from reservation.models import Review
 from reservation.models import *
 
 
@@ -12,7 +9,7 @@ class ServiceForm(forms.ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Please enter a service'}),
-            "duration": forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Please enter the duration in minutes'}),
+            "duration": forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Please enter the duration format 00:00:00'}),
             "price": forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Please enter the price'}),
 
         }
@@ -36,7 +33,7 @@ class ServiceUpdateForm(forms.ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Please enter a service'}),
-            "duration": forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Please enter the duration'}),
+            "duration": forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Please enter the duration format 00:00:00'}),
             "price": forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Please enter the price'}),
 
         }
@@ -118,6 +115,7 @@ class ReservationForm(forms.ModelForm):
         fields = ("stylist_service", "datetime_from")
 
         widgets = {
+            # "stylist": forms.Select(attrs={'class': 'form-select'}),
             "stylist_service": forms.Select(attrs={'class': 'form-select'}),
             # "services": forms.Select(attrs={'class': 'form-select'}),
             "datetime_from": forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
@@ -131,9 +129,6 @@ class StylistServiceForm(forms.ModelForm):
 
         widgets = {
             'stylist': forms.Select(attrs={'class': 'form-select'}),
-            'service': forms.CheckboxSelectMultiple(),
+            'service': forms.Select(attrs={'class': 'form-select'}),
 
         }
-
-
-

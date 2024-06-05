@@ -1,6 +1,24 @@
 {% extends 'base.html' %}
 {% block title %} Create review {% endblock %}
 {% block content %}
+    <style>
+        .stars {
+            display: flex;
+            cursor: pointer;
+        }
+
+        .star {
+            font-size: 2rem;
+            color: lightgray;
+            transition: color 0.2s;
+        }
+
+        .star.selected,
+        .star:hover,
+        .star:hover ~ .star {
+            color: gold;
+        }
+    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8 offset-md-2 gy-5">
@@ -8,17 +26,66 @@
                     <div class="card-header">
                         <h3 class="text-center">Create a review</h3>
                     </div>
+
                     <form method="post">
                         {% csrf_token %}
                         <div class="card-body">
-                            {{ form.as_p }}
+                            {#                            {{ form.as_p }}#}
+
+                            <p>
+                                {{ form.user.label_tag }}
+                                {{ form.user }}
+                                {{ form.user.errors }}
+                            </p>
+                            <p>
+                                {{ form.stylist.label_tag }}
+                                {{ form.stylist }}
+                                {{ form.stylist.errors }}
+                            </p>
+                            <p>
+                                {{ form.stars.label_tag }}
+                                {{ form.stars }}
+                                <span class="stars" id="starRating">
+                                <span class="star" data-value="1">&#9733;</span>
+                                <span class="star" data-value="2">&#9733;</span>
+                                <span class="star" data-value="3">&#9733;</span>
+                                <span class="star" data-value="4">&#9733;</span>
+                                <span class="star" data-value="5">&#9733;</span>
+                            </span>
+                                {{ form.stars.errors }}
+                            </p>
+                            <p>
+                                {{ form.description.label_tag }}
+                                {{ form.description }}
+                                {{ form.description.errors }}
+                            </p>
                         </div>
                         <div class="card-footer text-center">
                             <button type="submit" class="btn btn-success">Save</button>
                         </div>
                     </form>
+
+                    <script>
+                        const stars = document.querySelectorAll('.star');
+                        stars.forEach(star => {
+                            star.addEventListener('click', (event) => {
+                                const value = event.target.getAttribute('data-value');
+                                stars.forEach(s => {
+                                    s.classList.remove('selected');
+                                    if (s.getAttribute('data-value') <= value) {
+                                        s.classList.add('selected');
+                                        let elementNumberOfStars = document.getElementById('id_stars');
+                                        elementNumberOfStars.value = value;
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+
                 </div>
             </div>
+
         </div>
     </div>
+
 {% endblock %}

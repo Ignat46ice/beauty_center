@@ -1,14 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, TemplateView
 
-from reservation.models import Service, Stylist, Reservation, StylistService
+from reservation.models import  Stylist, Reservation, StylistService
 from reservation.models import Service, AboutUs, Contact, Review
 
-from reservation.forms import ServiceForm, ServiceUpdateForm, ReservationForm, StylistServiceForm
+from reservation.forms import  ReservationForm, StylistServiceForm
 
 from reservation.forms import StylistForm, StylistUpdateForm
 from reservation.forms import ServiceForm, ServiceUpdateForm, ReviewForm, ReviewUpdateForm
@@ -82,7 +83,6 @@ class StylistUpdateView(UpdateView):
 class StylistDeleteView(DeleteView):
     template_name = "stylist/delete_stylist.html"
     model = Stylist
-    form_class = StylistUpdateForm
     success_url = reverse_lazy('stylist_list')
 
 
@@ -91,6 +91,7 @@ class StylistServiceCreateView(CreateView):
     model = StylistService
     form_class = StylistServiceForm
     success_url = reverse_lazy('stylist_list')
+    context_object_name = 'service_stylist'
 
 
 class ReservationCreateView(CreateView):
@@ -102,15 +103,21 @@ class ReservationCreateView(CreateView):
     def form_valid(self, form):
         if form.is_valid():
             datetime_from = form.cleaned_data['datetime_from']
-            datetime_to = form.cleaned_data['datetime_to']
+            stylist_service = form.cleaned_data['stylist_service']
+            duration = stylist_service.service.duration
+            datetime_to = datetime_from + duration
+
             reservation = Reservation.objects.filter(
-                Q(start_date_time__gte=datetime_from, start_date_time__lte=datetime_to) |
-                Q(end_date_time__gte=datetime_from, end_date_time__lte=datetime_to) |
-                Q(start_date_time__lt=datetime_from, end_date_time__gt=datetime_to)
+                Q(datetime_from__gte=datetime_from, datetime_from__lte=datetime_to) |
+                Q(datetime_to__gte=datetime_from, datetime_to__lte=datetime_to) |
+                Q(datetime_from__lt=datetime_from, datetime_to__gt=datetime_to)
 
             ).count()
             if reservation.intersecting > 0:
-                raise ValueError("Your reservation conflicts with another reservation")
+                raise ValidationError("Your reservation conflicts with another reservation")
+            reservation = form.save(commit=False)
+            reservation.datetime_to = datetime_to
+            reservation.save()
             return redirect(self.success_url)
         return super(ReservationCreateView, self).form_valid(form)
 

@@ -36,7 +36,8 @@
                     </a>
                     <ul class="dropdown-menu" style="background-color:bisque">
                         <li><a class="dropdown-item" href="{% url "create_stylist" %}">Add a new stylist</a></li>
-                        <li><a class="dropdown-item" href="{% url "stylist_list" %}">Beauty center team</a></li>
+                        <li><a class="dropdown-item" href="{% url "stylist_service" %}">Select a service for a stylist</a></li>
+                        <li><a class="dropdown-item" href="{% url "stylist_list" %}">Our team</a></li>
                     </ul>
                 </li>
 
@@ -83,7 +84,7 @@
                     <form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-outline-danger"
-                                style="background-color: deeppink;color:white; margin-right: 5px">
+                                style="background-color: burlywood">
                             Logout, {{ user.username }}
                         </button>
                     </form>

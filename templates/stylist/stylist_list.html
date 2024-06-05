@@ -16,8 +16,12 @@
                             
                             <h5 class="card-title" >{{ stylist.name }}</h5>
                             <p class="card-text">Description: {{ stylist.description }} </p>
-                            <p class="card-text">Expert in: {% for s in stylist.services.all %} {{ s }} {% endfor %} </p>
-                            
+                            <p class="card-text">Expert in: {{ stylist.stylistservice_set.all.first}} </p>
+{#                            <p>#}
+{#                                {{ form.stylist_service.label_tag }}#}
+{#                                {{ form.stylist_service}}#}
+{#                                {{ form.stylist_service.errors }}#}
+{#                            </p>#}
                             
                             <div class="dropdown">
                                 

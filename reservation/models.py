@@ -4,8 +4,8 @@ from django.db import models
 
 class Service(models.Model):
     name = models.CharField(max_length=255)
-    duration = models.IntegerField()
-    price = models.DecimalField(max_digits=10, decimal_places=0)
+    duration = models.DurationField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
         return self.name
@@ -27,7 +27,7 @@ class StylistService(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.service} @ {self.stylist}'
+        return f' Service: {self.service} | Expert: {self.stylist}'
 
 
 class Reservation(models.Model):
