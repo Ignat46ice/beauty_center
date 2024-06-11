@@ -3,37 +3,23 @@
 
 {% block title %} Your Reservations  {% endblock %}
 
-
 {% block content %}
-
     <div class='container-fluid' >
         <div class="row" >
             {% for reservation in all_reservations %}
-                <div class="col-md-3 gy-3" >
+                <div class="col-md-12 gy-5" >
                 
                     <div class="card" style="background-color: rgb(95 71 71 /43%)">
                         <div class="card-body">
+                            <h3 class="card-title"> {{ reservation.stylist_service }}</h3>
+                            <h4 class="card-text">Date: {{ reservation.datetime_from }} </h4>
                             
-                            <h5 class="card-title">Expert: {{ reservation.stylist }}</h5>
-                            <p class="card-text">Service: {{ reservation.service }} </p>
-                            <p class="card-text">Date: {{ reservation.datetime_from }} </p>
-                            
-                            <div class="dropdown">
-                                
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false" style="background-color: burlywood">
-                                    More Actions
-                                </button>
-                                
-                                <ul class="dropdown-menu" style="background-color: bisque">
-                                    <li>
-                                        <a class="dropdown-item" href="{% url "update_reservation" service.id %}">Update</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{% url "delete_reservation" service.id %}">Delete</a>
-                                    </li>
-                                </ul>
-                            </div>
+                            {% if user.is_authenticated %}
+                                <div class="dropdown text-right">
+                                <a href="{% url "update_reservation" reservation.id %}" class="btn btn-secondary">Update</a>
+                                <a href="{% url "delete_reservation" reservation.id %}" class="btn btn-danger">Delete</a>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

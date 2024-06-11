@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Stylist & Service {% endblock %}
+
+
+{% block content %}
+
+    <div class='container-fluid' >
+        <div class="row text-center" >
+            {% for stylist in all_stylist_services %}
+                <div class="col-md-12 gy-3" >
+                
+                    <div class="card" style="background-color: rgb(95 71 71 /43%)">
+                      
+                        <div class="card-body">
+                            <h4 class="card-text">Name: {{ stylist.stylist}} </h4>
+                            <h4 class="card-text">Service: {{ stylist.service }} </h4>
+                             <div class="dropdown text-center">
+                                <a href="{% url "update_stylist_service" stylist.id %}" class="btn btn-secondary">Update</a>
+                                <a href="{% url "delete_stylist_service" stylist.id %}" class="btn btn-danger">Delete</a>
+                                </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

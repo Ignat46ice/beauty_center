@@ -1,10 +1,33 @@
 {% load static %}
+<style>
+    body {
+        background-image: url({% static 'images/IMG_7323.jpg' %});
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        font-size: 15px;
+        font-family: 'Verdana', sans-serif;
+        padding: 15px;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        color: #fff;
+    }
+
+    table {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        color: #fff;
+    }
+</style>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid" style="background-color: burlywood">
+    <div class="container-fluid">
         <a class="nav-logo" href="{% url 'home_page' %}">
             <div class="row">
-        <img src="{% static 'images/logo.png' %}" alt="no image" height="50px">
-    </div>
+                <img src="{% static 'images/logo.png' %}" alt="no image" height="50px">
+            </div>
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -18,53 +41,33 @@
                     <a class="nav-link active" aria-current="page" href="{% url "home_page" %}">Home</a>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false" >
-                        Prices
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'create_reservation' %}" role="button">
+                        Reserv Now
                     </a>
-                    <ul class="dropdown-menu" style="background-color:bisque">
-                        <li><a class="dropdown-item" href="{% url 'create_service' %}">New service</a></li>
-                        <li><a class="dropdown-item" href="{% url 'services_list' %}">Services</a></li>
-                    </ul>
                 </li>
 
-                <li class="nav-item dropdown" >
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'services_list' %}" role="button">
+                        Price List
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "stylist_list" %}" role="button">
                         Our Team
                     </a>
-                    <ul class="dropdown-menu" style="background-color:bisque">
-                        <li><a class="dropdown-item" href="{% url "create_stylist" %}">Add a new stylist</a></li>
-                        <li><a class="dropdown-item" href="{% url "stylist_service" %}">Select a service for a stylist</a></li>
-                        <li><a class="dropdown-item" href="{% url "stylist_list" %}">Our team</a></li>
-                    </ul>
                 </li>
 
-                <li class="nav-item dropdown" >
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        Reservation
-                    </a>
-                    <ul class="dropdown-menu" style="background-color:bisque">
-                        <li><a class="dropdown-item" href="{% url 'create_reservation' %}">New Reservation</a></li>
-                        <li><a class="dropdown-item" href="{% url 'reservation_list' %}">Your Reservations</a></li>
-                    </ul>
-                </li>
 
-                  <li class="nav-item dropdown" >
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'reviews_list' %}" role="button">
                         Reviews
                     </a>
-                    <ul class="dropdown-menu" style="background-color:bisque">
-                        <li><a class="dropdown-item" href="{% url 'create_review' %}">Add a review</a></li>
-                        <li><a class="dropdown-item" href="{% url 'reviews_list' %}">All reviews</a></li>
-                    </ul>
                 </li>
 
-                 <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about_us' %}" role="button">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about_us' %}" role="button">
                         About us
                     </a>
                 </li>
@@ -75,22 +78,37 @@
                     </a>
                 </li>
 
-
+                {% if user.is_superuser %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Admin panel
+                        </a>
+                        <ul class="dropdown-menu" style="background-color:lightgrey">
+                            <li><a class="dropdown-item" href="{% url 'create_service' %}">Add a new service</a></li>
+                            <li><a class="dropdown-item" href="{% url "create_stylist" %}">Add a new stylist</a></li>
+                            <li><a class="dropdown-item" href="{% url "stylist_service_list" %}">Uppdate a service for
+                                a stylist</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
 
             </ul>
-            
+            <div>
+            </div>
             <div>
                 {% if user.is_authenticated %}
                     <form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-outline-danger"
-                                style="background-color: burlywood">
+                                style="background-color: lightgrey ">
                             Logout, {{ user.username }}
                         </button>
                     </form>
                 {% else %}
                     <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
-                    <a href="{% url 'create_user' %}" class="btn btn-outline-secondary" style="margin-right: 5px">Signup</a>
+                    <a href="{% url 'create_user' %}" class="btn btn-outline-secondary"
+                       style="margin-right: 5px">Signup</a>
                 {% endif %}
             </div>
         </div>

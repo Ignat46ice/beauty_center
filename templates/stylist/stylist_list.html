@@ -5,40 +5,49 @@
 
 
 {% block content %}
+    <style>
+        .stars {display: flex;}
+        .star {font-size: 1.5rem; color: gold}
+        img { object-fit: cover}
+          h4 {
+            display: flex;
+            justify-content: center;
+            align-items: center;}
+    </style>
 
-    <div class='container-fluid' >
-        <div class="row" >
+    <div class='container-fluid'>
+        <div class="row">
             {% for stylist in all_stylists %}
-                <div class="col-md-3 gy-3" >
-                
-                    <div class="card" style="background-color: rgb(95 71 71 /43%)">
-                        <div class="card-body">
-                            
-                            <h5 class="card-title" >{{ stylist.name }}</h5>
-                            <p class="card-text">Description: {{ stylist.description }} </p>
-                            <p class="card-text">Expert in: {{ stylist.stylistservice_set.all.first}} </p>
-{#                            <p>#}
-{#                                {{ form.stylist_service.label_tag }}#}
-{#                                {{ form.stylist_service}}#}
-{#                                {{ form.stylist_service.errors }}#}
-{#                            </p>#}
-                            
-                            <div class="dropdown">
-                                
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false" style="background-color: burlywood">
-                                    More Actions
-                                </button>
-                                
-                                <ul class="dropdown-menu" style="background-color: bisque">
-                                    <li>
-                                        <a class="dropdown-item" href="{% url "update_stylist" stylist.id %}">Update</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{% url "delete_stylist" stylist.id %}">Delete</a>
-                                    </li>
-                                </ul>
-                            </div>
+                <div class="col-md-3 gy-3 text-center">
+                    <div class="card " style="background-color: rgb(95 71 71 /43%)">
+                        {% if stylist.profile %}
+                            <img src="{{ stylist.profile.url }}" height="350" class="card-img-top"
+                                 alt="imagine profile">
+                        {% else %}
+                            <img src="{% static 'images/img_2.png' %}" height="300" alt="Imagine profile">
+                        {% endif %}
+                    
+                        <div class="card-body ">
+                            <h4 class="card-text"> {{ stylist.stylistservice_set.first }} </h4>
+                            <h5 class="card-text"> {{ stylist.description }} </h5>
+                            <h4 class="card-text text-center"> 
+                                <span 
+                                        class="stars ">{{ stylist.stars_avg|floatformat:1 }} 
+                                    <span class="star" data-value="1">&#9733;</span>
+                                        <a href="{% url "reviews_list" %}?stylist={{ stylist.id }}">({{ stylist.stars_count }})</a>
+                                </span>
+                            </h4>
+                        
+                            <p class="text-center"><a href="{% url 'create_reservation' %}" class="btn btn-success">Reservation</a></p>
+                            <p></p>
+                        
+                            {% if user.is_superuser %}
+                                <div class="dropdown text-center">
+                                <a href="{% url "update_stylist" stylist.id %}" class="btn btn-secondary">Update</a>
+                                <a href="{% url "delete_stylist" stylist.id %}" class="btn btn-danger">Delete</a>
+                                </div>
+                            {% endif %}
+                        
                         </div>
                     </div>
                 </div>

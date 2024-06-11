@@ -1,5 +1,11 @@
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.db import models
+from django.db.models import Avg
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+from beauty_center import settings
 
 
 class Service(models.Model):
@@ -17,6 +23,13 @@ class Stylist(models.Model):
     description = models.TextField()
     # services = models.ManyToManyField(Service)
     active = models.BooleanField(default=True)
+    profile = models.ImageField(null=True, blank=True, upload_to="stylist_profile/")
+
+    def stars_avg(self):
+        return Review.objects.filter(stylist=self).aggregate(Avg('stars'))['stars__avg']
+
+    def stars_count(self):
+        return Review.objects.filter(stylist=self).count()
 
     def __str__(self):
         return self.name
@@ -27,7 +40,7 @@ class StylistService(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f' Service: {self.service} | Expert: {self.stylist}'
+        return f' {self.service} Expert: {self.stylist}'
 
 
 class Reservation(models.Model):
@@ -61,3 +74,9 @@ class AboutUs(models.Model):
 
 class Contact(models.Model):
     description = models.TextField()
+
+
+# @receiver(post_save, sender="")
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         send_mail("object", "content", settings.EMAIL_HOST_USER,[])

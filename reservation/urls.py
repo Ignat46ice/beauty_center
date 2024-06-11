@@ -28,4 +28,7 @@ urlpatterns = [
     path('delete-review/<int:pk>/', views.ReviewDeleteView.as_view(), name='delete_review'),
 
     path('create-stylist_service/', views.StylistServiceCreateView.as_view(), name='stylist_service'),
+    path('stylist-service-list/', views.StylistServiceListView.as_view(), name='stylist_service_list'),
+    path('update-stylist-service/<int:pk>/', views.StylistServiceUpdateView.as_view(), name='update_stylist_service'),
+    path('delete-stylist-service/<int:pk>/', views.StylistServiceDeleteView.as_view(), name='delete_stylist_service'),
 ]

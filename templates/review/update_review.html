@@ -3,24 +3,64 @@
 {% block title %} Update - {{ review }} {% endblock %}
 
 {% block content %}
+      <style>
+        .stars {display: flex;cursor: pointer;}
+        .star {font-size: 2rem;color: lightgray;transition: color 0.2s;}
+        .star.selected,
+        .star:hover,
+        .star:hover .star {color: gold;}
+    </style>
 
     <div class="container-fluid">
-        <div class="row " style="background-color: burlywood">
+        <div class="row " >
             <div class="col-md-6 offset-md-3 gy-5" >
-                <div class="card" style="background-color: burlywood">
-                    <div class="card-header" style="background-color: burlywood">
-                        <h3 class="text-center" style="background-color: burlywood">Update {{review}}</h3>
+                <div class="card" style="background-color: rgb(95 71 71 /43%)">
+                    <div class="card-header" style="background-color: rgb(95 71 71 /43%)">
+                        <h3 class="text-center" >Update {{review.stylist}}</h3>
                     </div>
                     <form method="post" enctype="multipart/form-data" >
                         {% csrf_token %}
-                        <div class="card-body" style="background-color: burlywood">
-                            {{ form.as_p }}
+                        <div class="card-body" >
+
+                            <p>
+                                {{ form.stars.label_tag }}
+                                {{ form.stars }}
+                                <span class="stars" id="starRating">
+                                <span class="star" data-value="1">&#9733;</span>
+                                <span class="star" data-value="2">&#9733;</span>
+                                <span class="star" data-value="3">&#9733;</span>
+                                <span class="star" data-value="4">&#9733;</span>
+                                <span class="star" data-value="5">&#9733;</span>
+                                </span>
+                                {{ form.stars.errors }}
+                            </p>
+                            <p>Modify your description:
+                                {{ form.description }}
+                                {{ form.description.errors }}
+                            </p>
+                            
                         </div>
-                         <div class="card-footer text-center" style="background-color: burlywood">
+                         <div class="card-footer text-center" style="background-color: rgb(95 71 71 /43%)">
                             <button type="submit" class="btn btn-secondary" style="background-color: green">Save</button>
                             <a href="{% url 'reviews_list' %}" class="btn btn-secondary" style="background-color: red">Cancel</a>
                         </div>
                     </form>
+                    <script>
+                        const stars = document.querySelectorAll('.star');
+                        stars.forEach(star => {
+                            star.addEventListener('click', (event) => {
+                                const value = event.target.getAttribute('data-value');
+                                stars.forEach(s => {
+                                    s.classList.remove('selected');
+                                    if (s.getAttribute('data-value') <= value) {
+                                        s.classList.add('selected');
+                                        let elementNumberOfStars = document.getElementById('id_stars');
+                                        elementNumberOfStars.value = value;
+                                    }
+                                });
+                            });
+                        });
+                    </script>
                 </div>
             </div>
         </div>

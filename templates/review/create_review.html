@@ -2,22 +2,11 @@
 {% block title %} Create review {% endblock %}
 {% block content %}
     <style>
-        .stars {
-            display: flex;
-            cursor: pointer;
-        }
-
-        .star {
-            font-size: 2rem;
-            color: lightgray;
-            transition: color 0.2s;
-        }
-
+        .stars {display: flex;cursor: pointer;}
+        .star {font-size: 2rem;color: lightgray;transition: color 0.2s;}
         .star.selected,
         .star:hover,
-        .star:hover ~ .star {
-            color: gold;
-        }
+        .star:hover .star {color: gold;}
     </style>
     <div class="container-fluid">
         <div class="row">
@@ -30,13 +19,28 @@
                     <form method="post">
                         {% csrf_token %}
                         <div class="card-body">
-                            {#                            {{ form.as_p }}#}
-
+                            
+                            
+                            {% if user.is_authenticated %}  
+                          
+                                {% for user in  review.user  %}
+                                    {% if user == user.is_authenticated %}
+                                    {{ user }}
+                                    {%endif%}
+                                {% endfor %}
+                            {% endif %}
+                        
                             <p>
                                 {{ form.user.label_tag }}
-                                {{ form.user }}
+                                {{ user}}
                                 {{ form.user.errors }}
                             </p>
+                            <p>
+                                {{ form.user.label_tag }}
+                                {{ form.user}}
+                                {{ form.user.errors }}
+                            </p>
+                            
                             <p>
                                 {{ form.stylist.label_tag }}
                                 {{ form.stylist }}
@@ -51,11 +55,10 @@
                                 <span class="star" data-value="3">&#9733;</span>
                                 <span class="star" data-value="4">&#9733;</span>
                                 <span class="star" data-value="5">&#9733;</span>
-                            </span>
+                                </span>
                                 {{ form.stars.errors }}
                             </p>
-                            <p>
-                                {{ form.description.label_tag }}
+                            <p>Leave a short description about your experience:
                                 {{ form.description }}
                                 {{ form.description.errors }}
                             </p>

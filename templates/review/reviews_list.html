@@ -1,30 +1,72 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %} Reviews {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12" >
-                <table class="table table-striped" style="background-color: burlywood">
+            <div class="col-md-2 gy-5">
+                <div class="card" style="background-color: rgb(95 71 71 /43%)">
+                    <div class="card-header" >
+                        <h3 class="text-center">Filters</h3>
+                    </div>
+                    <form method="get">
+                        <div class="card-body" style="background-color: rgb(95 71 71 /43%)">
+                            {{ filter_form }}
+                        </div>
+                        <div class="card-footer text-center" >
+                            <button type="submit" class="btn btn-success">Search</button>
+                            <a href="{% url 'reviews_list' %}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-10 gy-5 ">
+                <table class="table table-striped" style="background-color: rgb(95 71 71 /43%)" >
                     <thead>
                     <tr>
-                        <th class="text-center" style="background-color: burlywood">Stylist</th>
-                        <th class="text-center" style="background-color: burlywood">Stars</th>
-                        <th class="text-center" style="background-color: burlywood">Review</th>
-                        <th class="text-center" style="background-color: burlywood"> </th>
+                        <th class="text-center" style="background-color: rgb(95 71 71 /43%)">Stylist</th>
+                        <th class="text-center" style="background-color: rgb(95 71 71 /43%)">Stars</th>
+                        <th class="text-center" style="background-color: rgb(95 71 71 /43%)">Review</th>
+                        <th class="text-center" style="background-color: rgb(95 71 71 /43%)">User</th>
+                        {% if user.is_authenticated%}
+                        <th class="text-center" style="background-color: rgb(95 71 71 /43%)"><a href="{% url 'create_review' %}" class="btn btn-success">New Review</a></th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tbody>
                     {% for review in all_reviews %}
                         <tr>
                         <td class="text-center" style="background-color: rgb(95 71 71 /43%)">{{ review.stylist }}</td>
-                        <td class="text-center" style="background-color: rgb(95 71 71 /43%)">{{ review.stars }}</td>
-                        <td class="text-center" style="background-color: rgb(95 71 71 /43%)"> {{ review.description }}</td>
+                        <style>
+                            .stars {
+                                display: compact;
+                                
+                            }
+                            .star {
+                                font-size: 1rem;
+                                color: gold;
+                                transition: color 0.2s;
+                            }
+                        </style>
+                        <td class="text-center"
+                            style="background-color: rgb(95 71 71 /43%)">{{ review.stars }}
+                            <span class="stars" id="starRating">
+                                <span class="star" data-value="1">&#9733;</span>
+                            </span>
+                        <td class="text-center"
+                            style="background-color: rgb(95 71 71 /43%)"> {{ review.description }}</td>
+                        <td class="text-center"
+                            style="background-color: rgb(95 71 71 /43%)"> {{ review.user}}</td>
+                        
                         <td class="text-center" style="background-color: rgb(95 71 71 /43%)">
-                        <div>
-                           <a href="{% url "update_review" review.id %}" class="btn btn-outline-success" >Update</a>
-                            <a href="{% url "delete_review" review.id %}" class="btn btn-outline-danger" >Delete</a>
-                        </div>
+                        
+                        {% if user.is_authenticated and review.user == user %}
+                            <div>
+                                <a href="{% url "update_review" review.id %}" class="btn btn-success">Update</a>
+                                <a href="{% url "delete_review" review.id %}" class="btn btn-danger">Delete</a>
+                            </div>
+                        {% endif %}
                         </td>
                     {% endfor %}
                     </tr>

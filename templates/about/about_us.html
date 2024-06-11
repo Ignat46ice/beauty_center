@@ -1,39 +1,35 @@
-
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} About us {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12 gy-5">
+            <div class="col-md-8 offset-md-2 gy-5">
                 <div class="card" style="background-color: rgb(95 71 71 /43%)">
                     <div class="card-header">
-                        <h1 class="text-center">Welcome</h1>
+                        <h2 class="text-center">Nice to meet you</h2>
                     </div>
                     <form method="post">
                         {% csrf_token %}
-                        <div class="card-body" style="background-color: burlywood">
-                            <h3 class="text-right">
-                                Welcome to Beauty Center, where beauty meets excellence. 
-                                Located in the heart of the city, our salon offers a luxurious escape from the everyday 
-                                hustle and bustle. Our highly trained and experienced team of beauty professionals is 
-                                dedicated to providing you with the highest quality services, ensuring you leave feeling 
-                                refreshed, rejuvenated, and absolutely stunning. At Beauty Center, we believe that
-                                beauty is more than just skin deep. That's why we offer a comprehensive range of
-                                services designed to enhance your natural beauty and boost your confidence. 
-                                From haircuts and styling to advanced skincare treatments, makeup, manicures, pedicures,
-                                and more, we have everything you need to look and feel your best. Our salon is equipped 
-                                with state-of-the-art facilities, and we use only the finest products from leading 
-                                brands to ensure optimal results. Whether you're preparing for a special occasion or 
-                                simply looking to pamper yourself, our friendly and attentive staff will provide you 
-                                with a personalized experience tailored to your unique needs and preferences. 
-                                Experience the difference at Beauty Center, where your beauty is our passion. 
-                                Book your appointment today and let us help you shine.
-                            </h3>
+                        <div class="card-body text-center">
+
+
+                                <h5>Welcome to Beauty Center, where beauty meets excellence.</h5>
+                                <h5>Located in the heart of the city, our salon offers a luxurious escape from the everyday
+                                hustle and bustle.</h5>
+                                <h5>Our highly trained and experienced team of beauty professionals is
+                                dedicated to providing you with the highest quality services, ensuring you leave feeling
+                                refreshed, rejuvenated, and absolutely stunning.</h5>
+                                <h5>At Beauty Center, we believe that beauty is more than just skin deep.</h5>
+                                <h5>That's why we offer a comprehensive range of services designed to enhance your natural
+                                beauty and boost your confidence.</h5>
+                                <h5>Book your appointment today and let us help you shine.</h5>
+
                         </div>
                         <div class="card-footer text-center">
-                            <a href="{% url 'home_page' %}" class="btn btn-secondary" style="background-color: burlywood">Back</a>
+                            <a href="{% url 'home_page' %}" class="btn btn-secondary">Back</a>
                         </div>
                     </form>
                 </div>

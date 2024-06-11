@@ -43,10 +43,14 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = '__all__'
+        exclude = ["user"]
 
         widgets = {
+
+
+
             'stylist': forms.Select(attrs={'class': 'form-select'}),
-            'stars': forms.NumberInput(attrs={'class': ""}),
+            'stars': forms.HiddenInput(),
             'description': forms.Textarea(
                 attrs={'class': 'form-control', 'placeholder': 'Please enter a review', 'rows': 1}),
         }
@@ -58,7 +62,7 @@ class ReviewUpdateForm(forms.ModelForm):
         fields = ['stars', 'description']
 
         widgets = {
-            'stars': forms.NumberInput(attrs={'class': ""}),
+            'stars': forms.HiddenInput(),
             'description': forms.Textarea(
                 attrs={'class': 'form-control', 'placeholder': 'Please enter a review', 'rows': 1}),
         }
@@ -74,7 +78,7 @@ class StylistForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Please enter a email'}),
             'description': forms.Textarea(
                 attrs={'class': 'form-control', 'placeholder': 'Please enter a description', 'rows': 3}),
-            # "services": forms.CheckboxSelectMultiple(),
+
         }
 
     def clean(self):
@@ -105,7 +109,7 @@ class StylistUpdateForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Please enter a email'}),
             'description': forms.Textarea(
                 attrs={'class': 'form-control', 'placeholder': 'Please enter a description', 'rows': 3}),
-            # "services": forms.CheckboxSelectMultiple(),
+
         }
 
 
@@ -129,6 +133,18 @@ class StylistServiceForm(forms.ModelForm):
 
         widgets = {
             'stylist': forms.Select(attrs={'class': 'form-select'}),
+            'service': forms.Select(attrs={'class': 'form-select'}),
+
+        }
+
+
+class StylistServiceUpdateForm(forms.ModelForm):
+    class Meta:
+        model = StylistService
+        fields = ['service']
+
+        widgets = {
+
             'service': forms.Select(attrs={'class': 'form-select'}),
 
         }

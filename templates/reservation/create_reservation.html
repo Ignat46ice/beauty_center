@@ -10,7 +10,7 @@
                     </div>
                     <form method="post">
                         {% csrf_token %}
-                        <div class="card-body">
+                        <div class="card-body" style="background-color: rgb(95 71 71 /43%)">
                             <p>
                                 {{ form.stylist_service.label_tag }}
                                 {{ form.stylist_service}}
@@ -20,11 +20,16 @@
                                <label for="datetime_from">Date and time:</label>
                                 <input type="datetime-local" id="datetime_from" name="datetime_from">
                             </p>
-                            
-                            
                         </div>
                         <div class="card-footer text-center">
+                        
+                            {% if user.is_authenticated %} 
                             <button type="submit" class="btn btn-success">Save</button>
+                            <a href="{% url 'reservation_list' %}" class="btn btn-secondary" >Your Reservations</a>
+                            {% else%}
+                                <a href="{% url 'login' %}" class="btn btn-success" >Login</a>
+                            {% endif%} 
+                        
                         </div>
                     </form> 
                 </div>

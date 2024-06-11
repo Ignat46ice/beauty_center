@@ -7,33 +7,28 @@
 {% block content %}
 
     <div class='container-fluid' >
-        <div class="row" >
+        <div class="row " >
             {% for service in all_services %}
-                <div class="col-md-12 gy-3" >
+                <div class="col-md-8 offset-md-2 gy-4">
 
                     <div class="card" style="background-color: rgb(95 71 71 /43%)">
                         <div class="card-body">
 
-                            <h1 class="card-title" >{{ service.name }}</h1>
-                            <p class="card-text">Duration: {{ service.duration }} MIN</p>
-                            <p class="card-text">Price: {{ service.price }} RON</p>
-
-                            <div class="dropdown">
-
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false" style="background-color: burlywood">
-                                    More Actions
-                                </button>
-
-                                <ul class="dropdown-menu" style="background-color: bisque">
-                                    <li>
-                                        <a class="dropdown-item" href="{% url "update_service" service.id %}">Update</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{% url "delete_service" service.id %}">Delete</a>
-                                    </li>
-                                </ul>
+                            <h1 class="card-title text-center" >{{ service.name }}</h1>
+                            <p class="card-text text-center">Duration: {{ service.duration }} MIN</p>
+                            <p class="card-text text-center">Price: {{ service.price }} RON</p>
+                            <p class="text-center"><a href="{% url 'create_reservation' %}" class="btn btn-success">Reservation</a></p>
+                        
+                            
+                            
+                            {% if user.is_superuser %}
+                            <div class="dropdown text-center">
+                            
+                                <a href="{% url "update_service" service.id %}" class="btn btn-secondary">Update</a>
+                                <a href="{% url "delete_service" service.id %}" class="btn btn-danger">Delete</a>
+                                
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

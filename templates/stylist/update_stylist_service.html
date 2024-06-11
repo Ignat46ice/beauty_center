@@ -1,29 +1,31 @@
 {% extends 'base.html' %}
-{% load static %}
 
-{% block title %} Update - {{ service }} {% endblock %}
+{% block title %} Update - {{ stylistservice }} {% endblock %}
 
 {% block content %}
-
+    
     <div class="container-fluid">
         <div class="row " >
             <div class="col-md-6 offset-md-3 gy-5" >
                 <div class="card" style="background-color: rgb(95 71 71 /43%)">
                     <div class="card-header" >
-                        <h3 class="text-center" >Update {{service}}</h3>
+                        <h3 class="text-center" >Update service for {{stylistservice}}</h3>
                     </div>
                     <form method="post" enctype="multipart/form-data" >
                         {% csrf_token %}
                         <div class="card-body" style="background-color: rgb(95 71 71 /43%)">
                             {{ form.as_p }}
                         </div>
-                         <div class="card-footer text-center" >
+                         <div class="card-footer text-center">
                             <button type="submit" class="btn btn-secondary" style="background-color: green">Save</button>
-                            <a href="{% url 'services_list' %}" class="btn btn-secondary" style="background-color: red">Cancel</a>
+                            <a href="{% url 'stylist_service_list' %}" class="btn btn-secondary" style="background-color: red">Cancel</a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+
+
 {% endblock %}

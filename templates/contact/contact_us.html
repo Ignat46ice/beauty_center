@@ -1,5 +1,5 @@
-
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} About us {% endblock %}
 
@@ -13,20 +13,22 @@
                     </div>
                     <form method="post">
                         {% csrf_token %}
-                        <div class="card-body" style="background-color: burlywood">
-                            <h2 class="text-right" >Adresă</h2>
-                            <h5 class="text-right" >Str. Sperantei 18, Sector 2, Bucuresti</h5>
-                            <h2 class="text-right" >Telefon</h2>
-                            <h5 class="text-right" >+40 747 238 542</h5>
-                            <h2 class="text-right" >Email</h2>
-                            <h5 class="text-right" >beautycenter@gmail.com</h5>
-                            <h2 class="text-right" >Program</h2>
-                            <h5 class="text-right" > Luni - Vineri: 9:00 - 19:00</h5>
-                            <h5 class="text-right" >Sâmbătă: 9:00 - 14:00</h5>
-                            <h5 class="text-right" >Duminică: Închis</h5>
+                        <div class="card-body" >
+
+                            <h3 class="text-right">Address</h3>
+                            <h6 class="text-right">Str. Sperantei 18, Sector 2, Bucuresti</h6>
+                            <h3 class="text-right">Phone Number</h3>
+                            <h6 class="text-right">+40 747 238 542</h6>
+                            <h3 class="text-right">Email</h3>
+                            <h6 class="text-right">beautycenter@gmail.com</h6>
+                            <h3 class="text-right">Schedule</h3>
+                            <h6 class="text-right"> Luni - Vineri: 9:00 - 19:00</h6>
+                            <h6 class="text-right">Sâmbătă: 9:00 - 14:00</h6>
+                            <h6 class="text-right">Duminică: Închis</h6>
                         </div>
                         <div class="card-footer text-center">
-                            <a href="{% url 'home_page' %}" class="btn btn-secondary" style="background-color: burlywood">Back</a>
+                            <a href="{% url 'home_page' %}" class="btn btn-secondary"
+                               >Back</a>
                         </div>
                     </form>
                 </div>
@@ -34,4 +36,3 @@
         </div>
     </div>
 {% endblock %}
-
